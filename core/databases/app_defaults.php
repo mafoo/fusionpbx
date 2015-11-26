@@ -126,10 +126,16 @@ if ($domains_processed == 1) {
 				$config = $_SESSION['switch']['scripts']['dir']."/resources/config.lua";
 			}
 			$fout = fopen($config,"w");
+			if(!$fout){
+				throw new Exception("Failed to open '$config' for writing");
+			}
 			$tmp = "\n";
 			$tmp .= "--set the variables\n";
 			if (strlen($_SESSION['switch']['sounds']['dir']) > 0) {
 				$tmp .= correct_path("	sounds_dir = [[".$_SESSION['switch']['sounds']['dir']."]];\n");
+			}
+			if (strlen($_SESSION['switch']['phrases']['dir']) > 0) {
+				$tmp .= correct_path("	phrases_dir = [[".$_SESSION['switch']['phrases']['dir']."]];\n");
 			}
 			if (strlen($_SESSION['switch']['db']['dir']) > 0) {
 				$tmp .= correct_path("	database_dir = [[".$_SESSION['switch']['db']['dir']."]];\n");
