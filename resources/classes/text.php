@@ -76,9 +76,10 @@ class text {
 					include "${lang_path}/app_languages.php";
 				}
 			}
-			//else {
-			//	throw new Exception("could not find app_languages for '$app_path'");
-			//}
+			else {
+				$caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+				trigger_error($caller[1]['function']." in ".$caller[1]['file']." line ".$caller[1]['line']." asked for text for '$app_path' however no app_languages.php exists or is readable", E_USER_WARNING);
+			}
 
 		//check the session language
 			if (isset($_SESSION['domain']) and $language_code == null) {
